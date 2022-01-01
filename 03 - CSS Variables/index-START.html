@@ -18,10 +18,25 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img class="finalImage" src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
 
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +60,35 @@
   </style>
 
   <script>
+
+    const spacingInput = document.querySelector('#spacing');
+    const blurInput = document.querySelector('#blur');
+    const baseInput = document.querySelector('#base');
+
+    const titleJS = document.querySelector('.hl');
+    const finalImage = document.querySelector('.finalImage');
+
+    function updateSpacing(e) {
+      console.log("update spacing")
+      finalImage.style.padding = spacingInput.value + "px";
+    }
+
+    function updateBlur(e) {
+      finalImage.style.filter = `blur(${blurInput.value}px)`;
+    }
+
+    function updateBase(e) {
+      finalImage.style.backgroundColor = baseInput.value;
+      titleJS.style.color = baseInput.value;
+    }
+
+    spacingInput.addEventListener('change', updateSpacing);
+    blurInput.addEventListener('change', updateBlur);
+    baseInput.addEventListener('change', updateBase);
+
+    spacingInput.addEventListener('mousemove', updateSpacing);
+    blurInput.addEventListener('mousemove', updateBlur);
+    baseInput.addEventListener('mousemove', updateBase);
   </script>
 
 </body>
